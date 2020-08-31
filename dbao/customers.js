@@ -45,8 +45,8 @@ const customers = {
 	},
 
 	insertCustomer: customer => {
-		let sql = `INSERT INTO customers (fname, mname, lname, username, password) VALUES (
-			${customer.fname}, ${customer.mname}, ${customer.lname}, ${customer.username}, ${customer.password}
+		let sql = `INSERT INTO customers (fname, mname, lname, username, password) VALUES 
+		('${customer.fname}', '${customer.mname}', '${customer.lname}', '${customer.username}', '${customer.password}'
 		);`;
 
 		return new Promise((resolve, reject) => {
