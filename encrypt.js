@@ -1,14 +1,16 @@
 "use strict";
 const crypto = require("crypto");
 
-const genRandomString = length => {
+function genRandomString(length) {
 	return crypto
 		.randomBytes(Math.ceil(length / 2))
 		.toString("hex")
 		.slice(0, length);
 };
 
-const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY || genRandomString(32); // Must be 256 bits (32 characters)
+// const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY || genRandomString(32);
+const ENCRYPTION_KEY = process.env.ENCRYPT || "qwertyuioplkjhgfdsazxcvbnmqwerty"
+// Must be 256 bits (32 characters)
 const IV_LENGTH = 16; // For AES, this is always 16
 
 function encrypt(text) {
@@ -26,6 +28,10 @@ function encrypt(text) {
 }
 
 function decrypt(text) {
+
+	if (text === undefined || text === null) {
+		return ""
+	}
 	let textParts = text.split(":");
 	let iv = Buffer.from(textParts.shift(), "hex");
 	let encryptedText = Buffer.from(textParts.join(":"), "hex");
@@ -35,10 +41,11 @@ function decrypt(text) {
 		iv
 	);
 	let decrypted = decipher.update(encryptedText);
+	console.log("decrypt -> text", decrypted)
 
 	decrypted = Buffer.concat([decrypted, decipher.final()]);
 
 	return decrypted.toString();
 }
 
-module.exports = { decrypt, encrypt };
+module.exports = { decrypt, encrypt, genRandomString };

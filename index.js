@@ -2,6 +2,10 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const bodyParser = require("body-parser");
+const { v4: uuid } = require('uuid')
+const session = require("express-session");
+const randomString = require("./encrypt").genRandomString;
+const jwt = require("jsonwebtoken")
 app.use(bodyParser.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -9,15 +13,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const port = process.env.PORT || 3000;
 const productsRoute = require("./routes/products");
 const customersRoute = require("./routes/customers");
+const loginRoute = require("./routes/login")
 
 app.use("/api/products", productsRoute);
 app.use("/api/customers", customersRoute);
 
-app.use((req, res, next) => {
-	const error = new Error("Not found");
-	error.status = 404;
-	next(error);
-});
+app.use("/api/login", loginRoute);
+
+
 
 app.listen(port, () => {
 	console.log(`App listening at http://localhost:${port}`);

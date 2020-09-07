@@ -1,0 +1,23 @@
+{
+  "name": "ff-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/georgeaf18/fresh-finds-server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/georgeaf18/fresh-finds-server/issues"
+  },
+  "homepage": "https://github.com/georgeaf18/fresh-finds-server#readme",
+  "dependencies": {
+    "jsonwebtoken": "^8.5.1"
+  }
+}
